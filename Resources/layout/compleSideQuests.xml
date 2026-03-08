@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <TextView 
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+    android:id="@+id/QuestText"/>
+    <Button 
+            android:id="@+id/DateBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick a date you completed the quest"/>
+        <Button
+            android:id="@+id/StartTimePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick the time you started the quest"/>
+        <Button
+            android:id="@+id/EndTimePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick the time you ended the quest"/>
+        <Button
+    android:id="@+id/CameraBtn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Take Photo" />
+<Button
+        android:id="@+id/CompleteQuest"
+    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complete SideQuest">
+    </Button>
+
+</LinearLayout>
+</ScrollView>
+
