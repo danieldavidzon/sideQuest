@@ -12,9 +12,15 @@ SideQuest turns real life into a game. Every week, AI generates a fresh set of c
 5. Compete on the leaderboard and spend coins on boosts.
    
 **Features**
+
 🤖 **AI-generated weekly quests**, a new set every week
+
 📸 **AI-verified photo proof** so only real completions count
+
 ⭐ **XP and levels** that reward you for trying new things
+
 👥 **Shared albums** with friends who completed the same quest
+
 🏁 **Friends leaderboard** to compete and compare
+
 🛒 **Weekly boost shop** with XP multipliers and quest rerolls, which rotates every week
