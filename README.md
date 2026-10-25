@@ -10,6 +10,7 @@ SideQuest turns real life into a game. Every week, AI generates a fresh set of c
 3. AI checks that your photo actually matches the quest.
 4. Earn XP and coins, and your photo joins a shared album with friends who completed the same quest.
 5. Compete on the leaderboard and spend coins on boosts.
+   
 **Features**
 🤖 **AI-generated weekly quests**, a new set every week
 📸 **AI-verified photo proof** so only real completions count
