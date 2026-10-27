@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    >
+    <ImageView
+        android:id="@+id/HomescreenLogo"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/moonlitforestsidequest"
+        android:scaleType="centerCrop"
+        
+        />
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/MainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" 
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+        android:gravity="center"
     >
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="SideQuest" 
-    android:textSize="70px"
-    android:textAlignment="center"
-    android:paddingTop="200px"/>
+
 <Button
         android:id="@+id/StartBTN"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
         android:text="Start"
-        android:layout_marginTop="70px"/>
+        android:layout_marginTop="70px"
+            />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ClearDB"
-        android:text="Clear DB"/>
+        android:text="Clear DB"
+            />
 </LinearLayout>
+</FrameLayout>

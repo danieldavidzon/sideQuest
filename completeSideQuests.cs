@@ -12,6 +12,7 @@ using Android.Provider;
 using Android.Net;
 using Java.IO;
 using AndroidX.Core.Content;
+using sideQuest.Resources.layout;
 
 namespace sideQuest
 {
@@ -111,7 +112,8 @@ namespace sideQuest
                 db.SavePhoto(quest.Id, lastPhotoPath);
             }
 
-            Intent archive = new Intent(this, typeof (Archive_Activity));
+            Intent archive = new Intent(this, typeof (Home_Activity));
+            archive.PutExtra("XP",quest.XP);
             StartActivity(archive);
         }
 

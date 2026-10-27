@@ -16,12 +16,13 @@ namespace sideQuest
         private string Name;
         private string Explanation;
         private int XP;
-
-        public sideQuestsList(string name, string explanation, int xP)
+        private int coin;
+        public sideQuestsList(string name, string explanation, int xP, int coin)
         {
             this.Name = name;
             this.Explanation = explanation;
             this.XP = xP;
+            this.coin = coin;
         }
         public string GetName()
         {
@@ -46,6 +47,14 @@ namespace sideQuest
         public void SetXP(int xp)
         {
             this.XP = xp;
+        }
+        public int GetCoin() 
+        { 
+            return this.coin; 
+        }
+        public void SetCoin(int coin)
+        {
+            this.coin = coin;
         }
         }
     }

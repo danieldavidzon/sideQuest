@@ -14,7 +14,11 @@ namespace sideQuest.Resources.layout
     [Activity(Label = "Home_Activity")]
     public class Home_Activity : Activity
     {
+        private Database db = new Database();
+        private List<CompletedQuest> Quests = new List<CompletedQuest>();
         Button ArchiveBTN, SideQuestsBTN;
+        TextView XPCounter;
+        int XP = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -22,6 +26,10 @@ namespace sideQuest.Resources.layout
             SetContentView(Resource.Layout.Home);
             ArchiveBTN = FindViewById<Button>(Resource.Id.ArchiveBTN);
             SideQuestsBTN = FindViewById<Button>(Resource.Id.SideQuestsBTN);
+            XPCounter = FindViewById<TextView>(Resource.Id.XPCounter);
+            XP += Intent.GetIntExtra("XP", 0);
+            XPCounter.Text = $"XP: {XP.ToString()}";
+            
 
 
             SideQuestsBTN.Click += SideQuestsBTN_Click;

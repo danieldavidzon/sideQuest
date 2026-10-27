@@ -18,7 +18,7 @@ namespace sideQuest
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            
+            SupportActionBar?.Hide();
             SetContentView(Resource.Layout.activity_main);
             StartBTN = FindViewById<Button>(Resource.Id.StartBTN);
             StartBTN.Click += StartBTN_Click;
