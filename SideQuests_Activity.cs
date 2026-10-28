@@ -18,7 +18,7 @@ namespace sideQuest
     public class SideQuests_Activity : Activity
     {
         private Database db = new Database();
-        private OpenRouterService aiService = new OpenRouterService();
+        private SideQuestApiService aiService = new SideQuestApiService();
         private LinearLayout layout;
 
         private List<sideQuestsList> sideQuestsList = new List<sideQuestsList>
