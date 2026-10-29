@@ -28,7 +28,7 @@ namespace sideQuest
 
                 HttpResponseMessage response =
                     await client.GetAsync(url);
-
+                    
                 string responseBody =
                     await response.Content.ReadAsStringAsync();
 
@@ -48,5 +48,37 @@ namespace sideQuest
                 throw;
             }
         }
+
+        public async Task<DateTime> GetNextRerollAsync()
+        {
+            string url = $"{BaseUrl}/api/ai/weekly-status";
+
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"Backend error: {(int)response.StatusCode} - {responseBody}");
+            }
+
+            var result = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<WeeklyStatusResponse>(responseBody);
+
+            if (result == null || string.IsNullOrWhiteSpace(result.NextRerollUtc))
+                throw new Exception("Invalid weekly status response.");
+
+            return DateTime.Parse(
+                result.NextRerollUtc,
+                null,
+                System.Globalization.DateTimeStyles.AdjustToUniversal);
+        }
+
+    }
+    public class WeeklyStatusResponse
+    {
+        [Newtonsoft.Json.JsonProperty("nextRerollUtc")]
+        public string NextRerollUtc { get; set; }
     }
 }

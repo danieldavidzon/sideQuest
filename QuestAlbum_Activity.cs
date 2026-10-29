@@ -29,6 +29,7 @@ namespace sideQuest
 
             TextView albumInfo = FindViewById<TextView>(Resource.Id.AlbumQuestInfo);
             albumInfo.Text = $"{questName}\nXP: {questXP}\n{startTime}-{EndTime}";
+            
 
             GridView PhotosGrid = FindViewById<GridView>(Resource.Id.PhotosGrid);
 

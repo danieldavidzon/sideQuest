@@ -11,12 +11,14 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
         android:textAlignment="textStart"
-    android:id="@+id/QuestText"/>
+    android:id="@+id/QuestText"
+            style="@style/WhiteText"/>
     <Button 
             android:id="@+id/DateBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick a date you completed the quest"/>
+            android:text="Pick a date you completed the quest"
+            />
         <Button
             android:id="@+id/StartTimePicker"
             android:layout_width="match_parent"

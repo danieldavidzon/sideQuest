@@ -20,6 +20,9 @@ namespace sideQuest
         private Database db = new Database();
         private SideQuestApiService aiService = new SideQuestApiService();
         private LinearLayout layout;
+        private TextView countdownText;
+        private DateTime nextRerollUtc;
+        private System.Threading.CancellationTokenSource countdownCancellation;
 
         private List<sideQuestsList> sideQuestsList = new List<sideQuestsList>
         {
@@ -28,35 +31,7 @@ namespace sideQuest
             new sideQuestsList("SideQuest3","example explanation",500,50),
             new sideQuestsList("SideQuest4","example explanation",500,50)
         };
-        //protected override void OnCreate(Bundle savedInstanceState)
-        //{
-        //    base.OnCreate(savedInstanceState);
-        //    SetContentView(Resource.Layout.SideQuests);
-
-        //    LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.sideQuestLayout);
-
-        //    foreach (sideQuestsList quest in   sideQuestsList)
-        //    {
-        //        bool isComplete = db.IsQuestCompleted(quest.GetName());
-        //        if (!isComplete)
-        //        {
-        //            Button SideQuestBTN = new Button(this);
-        //            SideQuestBTN.Text = (quest.GetName() + "\nExplanation: " + quest.GetExplanation() + "\nXP: " + quest.GetXP());
-        //            SideQuestBTN.Tag = quest.GetName();
-        //            SideQuestBTN.TextAlignment = TextAlignment.TextStart;
-        //            SideQuestBTN.Click += (sender, e) =>
-        //            {
-        //                Button btn = sender as Button;
-        //                Intent complete = new Intent(this, typeof(completeSideQuests));
-        //                complete.PutExtra("QuestName", quest.GetName());
-        //                complete.PutExtra("QuestExplanation", quest.GetExplanation());
-        //                complete.PutExtra("QuestXP", quest.GetXP());
-        //                StartActivity(complete);
-        //            };
-        //            layout.AddView(SideQuestBTN);
-        //        }
-        //    }
-        //}
+  
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -64,6 +39,20 @@ namespace sideQuest
 
             layout = FindViewById<LinearLayout>(
                 Resource.Id.sideQuestLayout);
+            countdownText = new TextView(this)
+            {
+                Text = "Loading countdown...",
+                TextSize = 22,
+                Gravity = GravityFlags.Center,
+                LayoutParameters = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MatchParent,
+        LinearLayout.LayoutParams.WrapContent)
+            };
+
+            countdownText.SetTextColor(Android.Graphics.Color.White);
+            countdownText.SetPadding(20, 30, 20, 30);
+
+            layout.AddView(countdownText);
 
             TextView loadingText = new TextView(this)
             {
@@ -81,6 +70,7 @@ namespace sideQuest
             layout.AddView(loadingText);
 
             await LoadQuestsAsync(loadingText);
+            await StartCountdownAsync();
         }
         private async Task LoadQuestsAsync(TextView loadingText)
         {
@@ -102,7 +92,7 @@ namespace sideQuest
                     return;
                 }
 
-                layout.RemoveAllViews();
+                layout.RemoveView(loadingText);
 
                 foreach (var quest in result.Quests)
                 {
@@ -142,6 +132,48 @@ namespace sideQuest
             }
         }
 
+
+        private async Task StartCountdownAsync()
+        {
+            try
+            {
+                nextRerollUtc = await aiService.GetNextRerollAsync();
+
+                countdownCancellation?.Cancel();
+                countdownCancellation = new System.Threading.CancellationTokenSource();
+
+                var token = countdownCancellation.Token;
+
+                while (!token.IsCancellationRequested)
+                {
+                    TimeSpan remaining = nextRerollUtc - DateTime.UtcNow;
+
+                    if (remaining <= TimeSpan.Zero)
+                    {
+                        countdownText.Text = "New quests arriving!";
+                        break;
+                    }
+
+                    countdownText.Text =
+                        $"NEW QUESTS IN\n" +
+                        $"{remaining.Days:D2}d : " +
+                        $"{remaining.Hours:D2}h : " +
+                        $"{remaining.Minutes:D2}m : " +
+                        $"{remaining.Seconds:D2}s";
+
+                    await Task.Delay(1000, token);
+                }
+            }
+            catch (System.OperationCanceledException)
+            {
+                // Countdown was stopped.
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                countdownText.Text = "Unable to load countdown.";
+            }
+        }
 
     }
 }
